@@ -1,12 +1,12 @@
 <template>
-  <main class="box has-text-weight-bold columns">
+  <Box>
     <section class="column is-7">
       {{ tarefa.descricao || 'Tarefa sem descrição' }}
     </section>
     <section class="column">
       <Cronometro :tempoEmSegundos="tarefa.duracaoEmSegundos" />
     </section>
-  </main>
+  </Box>
 </template>
 
 <style scoped>
@@ -21,6 +21,7 @@
   import type { PropType } from 'vue';
   import  Cronometro from './Cronometro.vue';
   import type ITarefa from '@/interfaces/Tarefa';
+  import Box from './Box.vue';
   
   export default defineComponent({
     name: 'Tarefa',
@@ -30,6 +31,6 @@
         required: true
       }
     },
-    components: { Cronometro }
+    components: { Cronometro, Box }
   });
 </script>
