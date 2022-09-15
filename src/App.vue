@@ -1,9 +1,9 @@
 <template>
-  <main class="columns is-gapless is-multiline">
+  <main class="columns is-gapless is-multiline" :class="{ 'modo-escuro': modoEscuroAtivo }">
     <section class="column is-one-quarter">
-      <BarraLateral />
+      <BarraLateral @aoTemaAlterado="trocarTema" />
     </section>
-    <section class="column is-three-quarter">
+    <section class="column is-three-quarter conteudo">
       <Formulario @aoSalvarTarefa="salvarTarefa" />
       <article class="list">
         <Tarefa v-for="(tarefa, index) in tarefas" :key="index" :tarefa="tarefa" />
@@ -15,9 +15,12 @@
   </main>
 </template>
 
-<style scoped>
+<style>
   .list {
     padding: 0 2rem;
+  }
+  .conteudo {
+    background-color: var(--bg-primario);
   }
 </style>
 
@@ -33,7 +36,8 @@
     name: 'App',
     data() {
       return {
-        tarefas: [] as ITarefa[]
+        tarefas: [] as ITarefa[],
+        modoEscuroAtivo: false as boolean,
       }
     },
     computed: {
@@ -44,6 +48,9 @@
     methods: {
       salvarTarefa(tarefa: ITarefa) {
         this.tarefas.push(tarefa);
+      },
+      trocarTema(modoEscuroAtivo: boolean) {
+        this.modoEscuroAtivo = modoEscuroAtivo;
       }
     },
     components: { BarraLateral, Formulario, Tarefa, Box }

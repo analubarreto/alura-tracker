@@ -1,7 +1,7 @@
 <template>
-  <main class="box has-text-weight-bold columns">
+  <article class="box has-text-weight-bold columns">
     <slot />
-  </main>
+  </article>
 </template>
 
 <script lang="ts">

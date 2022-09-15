@@ -1,7 +1,7 @@
 <template>
-  <div class="box">
-    <div class="columns">
-      <div
+  <article class="box formulario">
+    <section class="columns">
+      <aside
         class="column is-8"
         role="form"
         aria-label="Formulário para criação de uma nova tarefa"
@@ -12,13 +12,20 @@
           placeholder="Qual tarefa você deseja iniciar?"
           v-model="descricao"
         />
-      </div>
+      </aside>
       <div class="column">
         <Temporizador @aoTemporizadorFinalizado="finalizarTarefa"/>
       </div>
-    </div>
-  </div>
+    </section>
+  </article>
 </template>
+
+<style>
+  .formulario {
+    color: var(--texto-primario) !important;
+    background-color: var(--bg-primario) !important;
+  }
+</style>
 
 <script lang="ts">
 import { defineComponent } from "vue";

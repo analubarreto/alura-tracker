@@ -1,11 +1,17 @@
 
 <template>
   <section>
-    <strong>
+    <p class="display">
       {{ tempoDecorrido }}
-    </strong>
+    </p>
   </section>
 </template>
+
+<style scoped>
+  .display {
+    color: var(--texto-primario) !important;
+  }
+</style>
 
 <script lang="ts">
 import { defineComponent } from 'vue'
