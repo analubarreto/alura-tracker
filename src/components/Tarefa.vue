@@ -11,7 +11,6 @@
 
 <style scoped>
   .box {
-    background: #faf0ca;
     margin-top: 1rem;
   }
 </style>
