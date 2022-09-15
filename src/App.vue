@@ -50,6 +50,7 @@
         this.tarefas.push(tarefa);
       },
       trocarTema(modoEscuroAtivo: boolean) {
+        console.log(modoEscuroAtivo)
         this.modoEscuroAtivo = modoEscuroAtivo;
       }
     },

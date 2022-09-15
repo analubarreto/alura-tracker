@@ -42,7 +42,7 @@ export default defineComponent({
   methods: {
     alterarTema() {
       this.modoEscuroAtivo = !this.modoEscuroAtivo;
-      this.$emit('aoTemaAlterado');
+      this.$emit('aoTemaAlterado', this.modoEscuroAtivo);
     }
   }
 });

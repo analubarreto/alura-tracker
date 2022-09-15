@@ -8,7 +8,7 @@
 </template>
 
 <style scoped>
-  .display {
+  p.display {
     color: var(--texto-primario) !important;
   }
 </style>
