@@ -1,15 +1,17 @@
 <template>
   <section class="projetos">
-    <h1>Projetos</h1>
-    <form @submit.prevent="salvar" class="columns">
-      <div class="field column is-four-fifths">
-        <label for="nomeDoProjeto" class="label">Nome do Projeto</label>
-        <input type="text" class="input" v-model="nomeDoProjeto" id="nomeDoProjeto" />
-      </div>
-      <div class="field column is-one-fifth">
-        <button class="button" type="submit">salvar</button>
-      </div>
-    </form>
+    <header class="projetos__header">
+      <h1 class="is-size-2 mr-4">Projetos</h1>
+      <router-link to="/projetos/novo" class="button">
+        <span class="icon is-small">
+          <i class="fas fa-plus"></i>
+        </span>
+        <p>Adicionar novo projeto</p>
+      </router-link>
+    </header>
+    <!-- Formulário -->
+    <Formulario />
+    <!-- Listagem -->
     <table class="table is-fullwidth">
       <thead>
         <tr>
@@ -21,6 +23,13 @@
         <tr v-for="projeto in projetos" :key="projeto.id">
           <td>{{ projeto.id }}</td>
           <td>{{ projeto.nome }}</td>
+          <td>
+            <router-link :to="`/projetos/${projeto.id}`" class="button">
+              <span class="icon is-small">
+                <i class="fas fa-pencil-alt"></i>
+              </span>
+            </router-link>
+          </td>
         </tr>
       </tbody>
     </table>
@@ -30,6 +39,10 @@
 <style scoped>
 .projetos {
   padding: 1.25rem;
+}
+.projetos__header {
+  display: flex;
+  align-items: center;
 }
 .columns {
   display: flex;
@@ -42,29 +55,17 @@
 
 <script lang="ts">
 import { computed, defineComponent } from "vue";
-import type IProjeto from '@/interfaces/Projeto';
-import { idGenerator } from '@/utils/idGerenerator';
 import { useStore } from "@/store";
+import Formulario from '@/views/Projetos/Formulario.vue';
 
 export default defineComponent({
   name: 'Projetos',
-  data() {
-    return {
-      nomeDoProjeto: ''
-    }
-  },
   setup() {
     const store = useStore();
     return {
-      store,
       projetos: computed(() => store.state.projetos)
     }
   },
-  methods: {
-    salvar() {
-      this.store.commit('ADICIONA_PROJETO', this.nomeDoProjeto);
-      this.nomeDoProjeto = '';
-    }
-  }
+  components: { Formulario }
 });
 </script>
