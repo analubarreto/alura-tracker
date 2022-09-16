@@ -4,7 +4,6 @@
       <BarraLateral @aoTemaAlterado="trocarTema" />
     </section>
     <section class="column is-three-quarter conteudo">
-      <!-- Visualização de acordo com a rota -->
       <router-view></router-view>
     </section>
   </main>
