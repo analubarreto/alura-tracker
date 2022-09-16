@@ -11,7 +11,7 @@ export const key: InjectionKey<Store<State>> = Symbol();
 
 export const store = createStore<State>({
   state: {
-    projetos: []
+    projetos: [],
   },
   mutations: {
     'ADICIONA_PROJETO'(state, nomeDoProjeto: string) {
