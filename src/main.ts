@@ -4,7 +4,9 @@ import router from '@/router';
 import App from './App.vue';
 
 import './assets/main.css'
+import { store, key } from './store';
 
 createApp(App)
   .use(router)
+  .use(store, key)
   .mount('#app')

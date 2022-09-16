@@ -41,25 +41,28 @@
 </style>
 
 <script lang="ts">
-import { defineComponent } from "vue";
+import { computed, defineComponent } from "vue";
 import type IProjeto from '@/interfaces/Projeto';
 import { idGenerator } from '@/utils/idGerenerator';
+import { useStore } from "@/store";
 
 export default defineComponent({
   name: 'Projetos',
   data() {
     return {
-      nomeDoProjeto: '',
-      projetos: [] as IProjeto[]
+      nomeDoProjeto: ''
+    }
+  },
+  setup() {
+    const store = useStore();
+    return {
+      store,
+      projetos: computed(() => store.state.projetos)
     }
   },
   methods: {
     salvar() {
-      const projeto: IProjeto = {
-        id: idGenerator(),
-        nome: this.nomeDoProjeto,
-      }
-      this.projetos.push(projeto);
+      this.store.commit('ADICIONA_PROJETO', this.nomeDoProjeto);
       this.nomeDoProjeto = '';
     }
   }

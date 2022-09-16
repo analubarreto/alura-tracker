@@ -2,7 +2,7 @@
   <article class="box formulario">
     <section class="columns">
       <aside
-        class="column is-8"
+        class="column is-5"
         role="form"
         aria-label="Formulário para criação de uma nova tarefa"
       >
@@ -13,8 +13,18 @@
           v-model="descricao"
         />
       </aside>
+      <aside class="column is-3">
+        <div class="select">
+          <select v-model="idProjeto">
+            <option value="">Selecione o projeto</option>
+            <option :value="projeto.id" v-for="projeto in projetos" :key="projeto.id">
+              {{ projeto.nome }}
+            </option>
+          </select>
+        </div>
+      </aside>
       <div class="column">
-        <Temporizador @aoTemporizadorFinalizado="finalizarTarefa"/>
+        <Temporizador @aoTemporizadorFinalizado="salvarTarefa"/>
       </div>
     </section>
   </article>
@@ -28,9 +38,11 @@
 </style>
 
 <script lang="ts">
-import { defineComponent } from "vue";
+import { computed, defineComponent } from "vue";
 import Temporizador from './Temporizador.vue';
 import Tarefa from './Tarefa.vue';
+import { useStore } from "@/store";
+
 export default defineComponent({
   name: "Formulário",
   emits: ['aoSalvarTarefa'],
@@ -39,17 +51,25 @@ export default defineComponent({
   },
   data () {
     return {
-      descricao: ''
+      descricao: '',
+      idProjeto: ''
+    }
+  },
+  setup() {
+    const store = useStore();
+    return {
+      projetos: computed(() => store.state.projetos),
     }
   },
   methods: {
-    finalizarTarefa (tempoDecorrido: number) : void {
+    salvarTarefa (tempoDecorrido: number) : void {
       this.$emit('aoSalvarTarefa', {
         duracaoEmSegundos: tempoDecorrido,
-        descricao: this.descricao
+        descricao: this.descricao,
+        projeto: this.projetos.find(proj => proj.id.toString() == this.idProjeto)
       })
       this.descricao = ''
     }
-  }
+  },
 });
 </script>
