@@ -20,7 +20,11 @@ export const store = createStore<State>({
         nome: nomeDoProjeto
       }
       state.projetos.push(projeto);
-    }
+    },
+    'ALTERA_PROJETO'(state, projeto: IProjetos) { 
+      const index = state.projetos.findIndex(proj => proj.id == projeto.id);
+      state.projetos[index] = projeto;
+    } 
   }
 });
 
