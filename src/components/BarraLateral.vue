@@ -4,6 +4,20 @@
       <img src="../assets/logo.png" alt="">
     </h1>
     <button class="button" @click="alterarTema">{{ textoBotao }}</button>
+    <nav class="menu mt-5" role="navigation" aria-label="main navigation">
+      <ul class="menu-list">
+        <li>
+          <router-link to="/" class="link mb-2">
+            <i class="fas fa-tasks"></i>
+            tarefas
+          </router-link>
+          <router-link to="/projetos" class="link mb-2">
+            <i class="fas fa-project-diagram"></i>
+            projetos
+          </router-link>
+        </li>
+      </ul>
+    </nav>
   </header>
 </template>
 
@@ -21,6 +35,20 @@
       padding: 2.5rem;
       height: auto;
     }
+  }
+  .panel li {
+    margin: 8px 0;
+  }
+  .link {
+    color: #f2f2f2;
+  }
+  .link:hover {
+    color: #0d3b66;
+    background-color: #2F5C85;
+  }
+  .link.router-link-active {
+    color: #f2f2f2;
+    background-color: #2F5C85;
   }
 </style>
 
