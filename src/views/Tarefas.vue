@@ -20,11 +20,14 @@
 </style>
 
 <script lang="ts">
-  import { defineComponent } from 'vue';
+  import { computed, defineComponent } from 'vue';
   import type ITarefa from '@/interfaces/Tarefa';
   import Formulario from '@/components/Formulario.vue';
   import Tarefa from '@/components/Tarefa.vue';
   import Box from '@/components/Box.vue';
+  import { useStore } from '@/store';
+  import { NOTIFICAR } from '@/store/tipo-mutacoes';
+  import { TipoNotificacao } from '@/interfaces/Notificacao';
 
   export default defineComponent({
     name: 'App',
@@ -34,6 +37,13 @@
         modoEscuroAtivo: false as boolean,
       }
     },
+    setup() {
+      const store = useStore();
+      return {
+        projetos: computed(() => store.state.projetos),
+        store
+      }
+    },
     computed: {
       listaEstaVazia(): boolean {
         return this.tarefas.length === 0
@@ -41,10 +51,22 @@
     },
     methods: {
       salvarTarefa(tarefa: ITarefa) {
-        this.tarefas.push(tarefa);
+        if (this.projetos.length && !tarefa.projeto) {
+          this.store.commit(NOTIFICAR, {
+            titulo: 'Falha ao salvar tarefa',
+            texto: 'Sua tarefa tem que conter um projeto',
+            tipo: TipoNotificacao.FALHA
+          });
+        } else {
+          this.store.commit(NOTIFICAR, {
+            titulo: 'Aviso',
+            texto: 'Sua tarefa foi salva sem um projeto',
+            tipo: TipoNotificacao.ATENCAO
+          });
+          this.tarefas.push(tarefa);
+        }
       },
       trocarTema(modoEscuroAtivo: boolean) {
-        console.log(modoEscuroAtivo)
         this.modoEscuroAtivo = modoEscuroAtivo;
       }
     },

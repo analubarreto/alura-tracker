@@ -33,7 +33,6 @@
     },
     methods: {
       trocarTema(modoEscuroAtivo: boolean) {
-        console.log(modoEscuroAtivo)
         this.modoEscuroAtivo = modoEscuroAtivo;
       }
     },
