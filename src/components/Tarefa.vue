@@ -1,15 +1,15 @@
 <template>
   <Box>
     <div class="columns">
-      <section class="column is-4">
+      <div class="column is-4">
         {{ tarefa.descricao || 'Tarefa sem descrição' }}
-      </section>
-      <section class="is-3" v-if="tarefa.projeto">
-        {{ tarefa.projeto?.nome }}
-      </section>
-      <section class="column">
-        <Cronometro :tempoEmSegundos="tarefa.duracaoEmSegundos" />
-      </section>
+      </div>
+      <div class="column is-3">
+        {{ tarefa.projeto?.nome || 'N/D' }}
+      </div>
+      <div class="column">
+        <Cronometro :tempoEmSegundos="tarefa.duracaoEmSegundos"/>
+      </div>
     </div>
   </Box>
 </template>
@@ -17,6 +17,12 @@
 <style scoped>
   .box {
     margin-top: 1rem;
+  }
+  .columns {
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
   }
 </style>
 
