@@ -26,7 +26,6 @@ import Formulario from '@/components/Formulario.vue';
 import Tarefa from '@/components/Tarefa.vue';
 import Box from '@/components/Box.vue';
 import { useStore } from '@/store';
-import { NOTIFICAR } from '@/store/tipo-mutacoes';
 import { TipoNotificacao } from '@/interfaces/Notificacao';
 import { notificarMixin } from '@/mixins/notificar';
 

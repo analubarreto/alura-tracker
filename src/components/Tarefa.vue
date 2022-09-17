@@ -1,11 +1,16 @@
 <template>
   <Box>
-    <section class="column is-7">
-      {{ tarefa.descricao || 'Tarefa sem descrição' }}
-    </section>
-    <section class="column">
-      <Cronometro :tempoEmSegundos="tarefa.duracaoEmSegundos" />
-    </section>
+    <div class="columns">
+      <section class="column is-4">
+        {{ tarefa.descricao || 'Tarefa sem descrição' }}
+      </section>
+      <section class="is-3" v-if="tarefa.projeto">
+        {{ tarefa.projeto?.nome }}
+      </section>
+      <section class="column">
+        <Cronometro :tempoEmSegundos="tarefa.duracaoEmSegundos" />
+      </section>
+    </div>
   </Box>
 </template>
 
