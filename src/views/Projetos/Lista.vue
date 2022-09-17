@@ -27,6 +27,11 @@
                 <i class="fas fa-pencil-alt"></i>
               </span>
             </router-link>
+            <button class="button ml is-danger ml-2" @click="excluir(projeto.id)">
+              <span class="icon is-small">
+                <i class="fas fa-trash"></i>
+              </span>
+            </button>
           </td>
         </tr>
       </tbody>
@@ -52,13 +57,20 @@
 import { computed, defineComponent } from "vue";
 import { useStore } from "@/store";
 import Formulario from '@/views/Projetos/Formulario.vue';
+import { EXCLUI_PROJETO } from "@/store/tipo-mutacoes";
 
 export default defineComponent({
   name: 'Lista',
   setup() {
     const store = useStore();
     return {
-      projetos: computed(() => store.state.projetos)
+      projetos: computed(() => store.state.projetos),
+      store
+    }
+  },
+  methods: {
+    excluir(id: number) : void {
+      this.store.commit(EXCLUI_PROJETO, id)
     }
   },
   components: { Formulario }
