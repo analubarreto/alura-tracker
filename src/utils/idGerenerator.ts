@@ -1,9 +1,7 @@
-import type IProjetos from "@/interfaces/Projeto";
-
-export const idGenerator = (projectList: IProjetos[]) : number => {
+export const idGenerator = (list: { id: number }[]) : number => {
   const randomNumber = Math.random() * 1000;
   const roundedNumber = Math.round(randomNumber);
-  const projectsIds = projectList.map(proj => proj.id);
+  const projectsIds = list.map(item => item.id);
   if (projectsIds.includes(roundedNumber)) {
     let newRandomNumber: number;
     while (projectsIds.includes(roundedNumber)) {
