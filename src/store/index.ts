@@ -17,7 +17,7 @@ export const store = createStore<State>({
   mutations: {
     [ADICIONA_PROJETO](state, nomeDoProjeto: string) {
       const projeto: IProjetos = {
-        id: idGenerator(),
+        id: idGenerator(state.projetos),
         nome: nomeDoProjeto
       }
       state.projetos.push(projeto);
@@ -26,8 +26,8 @@ export const store = createStore<State>({
       const index = state.projetos.findIndex(proj => proj.id == projeto.id);
       state.projetos[index] = projeto;
     },
-    [EXCLUI_PROJETO](state, idDoProjeto) {
-      return state.projetos.filter(proj => proj.id != idDoProjeto);
+    [EXCLUI_PROJETO](state, idDoProjeto: number) {
+      state.projetos = state.projetos.filter(proj => proj.id != idDoProjeto);
     }
   }
 });
