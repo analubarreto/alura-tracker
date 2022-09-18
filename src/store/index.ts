@@ -2,14 +2,16 @@ import type IProjetos from "@/interfaces/Projeto";
 import type { InjectionKey } from "vue";
 import { createStore, Store, useStore as vuexUseStore } from "vuex";
 import { idGenerator } from '@/utils/idGerenerator';
-import { ADICIONA_PROJETO, ALTERA_PROJETO, EXCLUI_PROJETO, NOTIFICAR, DEFINIR_PROJETOS } from './tipo-mutacoes';
+import { ALTERA_PROJETO, EXCLUI_PROJETO, NOTIFICAR, DEFINIR_PROJETOS, DEFINIR_TAREFAS, ADICIONAR_TAREFAS, ADICIONA_PROJETO } from './tipo-mutacoes';
 import type INotificacao from "@/interfaces/Notificacao";
-import { ALTERAR_PROJETO, CADASTRAR_PROJETO, OBTER_PROJETOS, REMOVER_PROJETO } from './tipo-acoes';
+import { ALTERAR_PROJETO, CADASTRAR_PROJETO, CADASTRAR_TAREFA, OBTER_PROJETOS, OBTER_TAREFAS, REMOVER_PROJETO } from './tipo-acoes';
 import http from '@/http';
+import type ITarefa from "@/interfaces/Tarefa";
 
 interface State {
   projetos: IProjetos[],
-  notificacoes: INotificacao[]
+  notificacoes: INotificacao[],
+  tarefas: ITarefa[],
 }
 
 export const key: InjectionKey<Store<State>> = Symbol();
@@ -18,6 +20,7 @@ export const store = createStore<State>({
   state: {
     projetos: [],
     notificacoes: [],
+    tarefas: [],
   },
   mutations: {
     [ADICIONA_PROJETO](state, nomeDoProjeto: string) {
@@ -44,7 +47,14 @@ export const store = createStore<State>({
     },
     [DEFINIR_PROJETOS](state, projetos: IProjetos[]) {
       state.projetos = projetos;
-    }
+    },
+    [DEFINIR_TAREFAS](state, tarefas: ITarefa[]) {
+      state.tarefas = tarefas ;
+    },
+    [ADICIONAR_TAREFAS](state, tarefa: ITarefa) {
+      state.tarefas.push(tarefa);
+    },
+
   },
   actions: {
     async [OBTER_PROJETOS]({ commit }) {
@@ -90,7 +100,27 @@ export const store = createStore<State>({
         const error = new Error(err.message);
         return error;
       }
-    }
+    },
+    async [OBTER_TAREFAS]({ commit }) {
+      try {
+        const resposta = await http.get('tarefas');
+        commit(DEFINIR_TAREFAS, resposta.data);
+      } catch (err: any) {
+        const error = new Error(err.message);
+        return error;
+      }
+    },
+    async [CADASTRAR_TAREFA]({ commit }, tarefa: ITarefa) {
+      try {
+        const response = await http.post('/tarefas', tarefa);
+        if (response.status === 201) {
+          commit(ADICIONAR_TAREFAS, response.data);
+        }
+      } catch (err: any) {
+        const error = new Error(err.message);
+        return error;
+      }
+    },
   }
 });
 

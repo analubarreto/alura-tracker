@@ -16,5 +16,16 @@
       "nome": "Estudar Vue 3",
       "id": 5
     }
+  ],
+  "tarefas": [
+    {
+      "duracaoEmSegundos": 5,
+      "descricao": "Comprar ração para os gatos",
+      "projeto": {
+        "id": 3,
+        "nome": "Mandachuva, Batatinha, Catatau e Luci"
+      },
+      "id": 1
+    }
   ]
 }

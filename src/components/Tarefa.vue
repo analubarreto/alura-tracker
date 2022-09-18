@@ -27,20 +27,30 @@
 </style>
 
 <script lang="ts">
-  import { defineComponent } from 'vue';
-  import type { PropType } from 'vue';
-  import  Cronometro from './Cronometro.vue';
-  import type ITarefa from '@/interfaces/Tarefa';
-  import Box from './Box.vue';
+import { computed, defineComponent } from 'vue';
+import type { PropType } from 'vue';
+import  Cronometro from './Cronometro.vue';
+import type ITarefa from '@/interfaces/Tarefa';
+import Box from './Box.vue';
+import { useStore } from '@/store';
+import { OBTER_TAREFAS } from '@/store/tipo-acoes';
   
-  export default defineComponent({
-    name: 'Tarefa',
-    props: {
-      tarefa: {
-        type: Object as PropType<ITarefa>,
-        required: true
-      }
-    },
-    components: { Cronometro, Box }
-  });
+export default defineComponent({
+  name: 'Tarefa',
+  props: {
+    tarefa: {
+      type: Object as PropType<ITarefa>,
+      required: true
+    }
+  },
+  setup() {
+    const store = useStore();
+    store.dispatch(OBTER_TAREFAS)
+    return {
+      tarefas: computed(() => store.state.tarefas),
+      store
+    }
+  },
+  components: { Cronometro, Box }
+});
 </script>

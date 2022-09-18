@@ -28,6 +28,7 @@ import Box from '@/components/Box.vue';
 import { useStore } from '@/store';
 import { TipoNotificacao } from '@/interfaces/Notificacao';
 import { notificarMixin } from '@/mixins/notificar';
+import { CADASTRAR_TAREFA, OBTER_PROJETOS, OBTER_TAREFAS } from '@/store/tipo-acoes';
 
 export default defineComponent({
   name: 'App',
@@ -40,7 +41,10 @@ export default defineComponent({
   mixins: [notificarMixin],
   setup() {
     const store = useStore();
+    store.dispatch(OBTER_TAREFAS);
+    store.dispatch(OBTER_PROJETOS);
     return {
+      tarefas: computed(() => store.state.tarefas),
       projetos: computed(() => store.state.projetos),
       store
     }
@@ -55,8 +59,7 @@ export default defineComponent({
       if (this.projetos.length && !tarefa.projeto) {
         this.notificar(TipoNotificacao.FALHA, 'Falha ao salvar tarefa', 'Sua tarefa tem que conter um projeto');
       } else {
-        this.notificar(TipoNotificacao.ATENCAO, 'Aviso', 'Sua tarefa foi salva sem um projeto');
-        this.tarefas.push(tarefa);
+        this.store.dispatch(CADASTRAR_TAREFA, tarefa);
       }
     },
     trocarTema(modoEscuroAtivo: boolean) {
