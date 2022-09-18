@@ -57,8 +57,8 @@
 import { computed, defineComponent } from "vue";
 import { useStore } from "@/store";
 import Formulario from '@/views/Projetos/Formulario.vue';
+import { OBTER_PROJETOS, REMOVER_PROJETO } from "@/store/tipo-acoes";
 import { EXCLUI_PROJETO } from "@/store/tipo-mutacoes";
-import { OBTER_PROJETOS } from "@/store/tipo-acoes";
 
 export default defineComponent({
   name: 'Lista',
@@ -71,8 +71,11 @@ export default defineComponent({
     }
   },
   methods: {
-    excluir(id: number) : void {
-      this.store.commit(EXCLUI_PROJETO, id)
+    async excluir(id: number) : Promise<void> {
+      const response = await this.store.dispatch(REMOVER_PROJETO, id);
+      if (response.status === 200) {
+        this.store.commit(EXCLUI_PROJETO, id);
+      }
     }
   },
   components: { Formulario }
