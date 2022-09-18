@@ -4,7 +4,7 @@
       <div class="column is-4">
         {{ tarefa.descricao || 'Tarefa sem descrição' }}
       </div>
-      <div class="column is-3">
+      <div class="column is-3" v-if="tarefa.projeto">
         {{ tarefa.projeto?.nome || 'N/D' }}
       </div>
       <div class="column">
