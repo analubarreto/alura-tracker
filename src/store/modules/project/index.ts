@@ -36,8 +36,9 @@ export const project: Module<ProjectState, State> = {
   actions: {
     async [OBTER_PROJETOS]({ commit }) {
       try {
-        const resposta = await http.get('projetos');
-        commit(DEFINIR_PROJETOS, resposta.data);
+        const response = await http.get('projetos');
+        commit(DEFINIR_PROJETOS, response.data);
+        console.log(response.data);
       } catch (err: any) {
         const error = new Error(err.message);
         return error;
