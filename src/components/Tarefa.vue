@@ -1,6 +1,6 @@
 <template>
   <Box>
-    <div class="columns">
+    <div class="columns" @click="selecionarTarefa">
       <div class="column is-4">
         {{ tarefa.descricao || 'Tarefa sem descrição' }}
       </div>
@@ -23,6 +23,7 @@
     display: flex;
     align-items: center;
     justify-content: space-between;
+    cursor: pointer;
   }
 </style>
 
@@ -37,6 +38,7 @@ import { OBTER_TAREFAS } from '@/store/tipo-acoes';
   
 export default defineComponent({
   name: 'Tarefa',
+  emits: ['aoClicarTarefa'],
   props: {
     tarefa: {
       type: Object as PropType<ITarefa>,
@@ -49,6 +51,11 @@ export default defineComponent({
     return {
       tarefas: computed(() => store.state.tarefas),
       store
+    }
+  },
+  methods: {
+    selecionarTarefa(): void {
+      this.$emit('aoClicarTarefa', this.tarefa);
     }
   },
   components: { Cronometro, Box }
