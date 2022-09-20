@@ -16,22 +16,19 @@
       </Box>
     </article>
   </section>
-  <div class="modal" :class="{ 'is-active': tarefaSelecionada }" v-if="tarefaSelecionada">
-    <div class="modal-background" />
-    <div class="modal-card">
-      <header class="modal-card-head">
-        <button class="delete" aria-label="close" @click="fecharModal" ></button>
-      </header>
-      <section class="modal-card-body">
-        <label for="descricaoDaTarefa" class="label">Descrição</label>
-        <input id="descricaoDaTarefa" type="text" class="input" v-model="tarefaSelecionada.descricao">
-      </section>
-      <footer class="modal-card-foot">
-        <button class="button is-success" @click="alterarTarefa">Salvar</button>
-        <button class="button" @click="fecharModal">Cancelar</button>
-      </footer>
-    </div>
-  </div>
+  <Modal :mostrar="tarefaSelecionada != null" v-if="tarefaSelecionada">
+    <template v-slot:header>
+       <button class="delete" aria-label="close" @click="fecharModal" ></button>
+    </template>
+    <template v-slot:content>
+      <label for="descricaoDaTarefa" class="label">Descrição</label>
+      <input id="descricaoDaTarefa" type="text" class="input" v-model="tarefaSelecionada.descricao">
+    </template>
+    <template v-slot:footer>
+      <button class="button is-success" @click="alterarTarefa">Salvar</button>
+      <button class="button" @click="fecharModal">Cancelar</button>
+    </template>
+  </Modal>
 </template>
 
 <style>
@@ -49,6 +46,7 @@ import type ITarefa from '@/interfaces/Tarefa';
 import Formulario from '@/components/Formulario.vue';
 import Tarefa from '@/components/Tarefa.vue';
 import Box from '@/components/Box.vue';
+import Modal from '@/components/Modal.vue';
 import { useStore } from '@/store';
 import { TipoNotificacao } from '@/interfaces/Notificacao';
 import { notificarMixin } from '@/mixins/notificar';
@@ -115,6 +113,6 @@ export default defineComponent({
       }
     }
   },
-  components: { Formulario, Tarefa, Box }
+  components: { Formulario, Tarefa, Box, Modal }
 });
 </script>  
