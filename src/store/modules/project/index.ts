@@ -1,7 +1,7 @@
 import type { State } from '@/store/';
 import type IProjetos from "@/interfaces/Projeto";
 import type { Module } from "vuex";
-import { ALTERA_PROJETO, EXCLUI_PROJETO, DEFINIR_PROJETOS, ADICIONA_PROJETO } from '@/store/tipo-mutacoes';
+import { ALTERA_PROJETO, EXCLUIR_PROJETO, DEFINIR_PROJETOS, ADICIONA_PROJETO } from '@/store/tipo-mutacoes';
 import { ALTERAR_PROJETO, CADASTRAR_PROJETO, OBTER_PROJETOS, REMOVER_PROJETO } from '@/store/tipo-acoes';
 import { idGenerator } from '@/utils/idGerenerator';
 import http from '@/http';
@@ -29,7 +29,7 @@ export const project: Module<ProjectState, State> = {
       const index = state.projetos.findIndex(proj => proj.id == projeto.id);
       state.projetos[index] = projeto;
     },
-    [EXCLUI_PROJETO](state, idDoProjeto: number) {
+    [EXCLUIR_PROJETO](state, idDoProjeto: number) {
       state.projetos = state.projetos.filter(proj => proj.id != idDoProjeto);
     },
   },
@@ -38,7 +38,6 @@ export const project: Module<ProjectState, State> = {
       try {
         const response = await http.get('projetos');
         commit(DEFINIR_PROJETOS, response.data);
-        console.log(response.data);
       } catch (err: any) {
         const error = new Error(err.message);
         return error;
