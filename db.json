@@ -23,8 +23,19 @@
   ],
   "tarefas": [
     {
-      "id": 1,
-      "descricao": "Comprar ração para o gato"
+      "duracaoEmSegundos": 11,
+      "descricao": "Outra tarefa",
+      "id": 2
+    },
+    {
+      "duracaoEmSegundos": 2,
+      "descricao": "Teste 1",
+      "id": 3
+    },
+    {
+      "duracaoEmSegundos": 5,
+      "descricao": "Comprar ração",
+      "id": 4
     }
   ]
 }

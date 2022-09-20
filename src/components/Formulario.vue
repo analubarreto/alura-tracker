@@ -59,7 +59,7 @@ export default defineComponent({
     const salvarTarefa = (tempoDecorrido: number) : void => {
       emit('aoSalvarTarefa', {
         duracaoEmSegundos: tempoDecorrido,
-        descricao: descricao,
+        descricao: descricao.value,
         projeto: projetos.value.find(proj => proj.id.toString() == idProjeto.value)
       })
       descricao.value = ''

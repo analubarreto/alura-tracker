@@ -46,9 +46,14 @@ export const store = createStore<State>({
     }
   },
   actions: {
-    async [OBTER_TAREFAS]({ commit }) {
+    async [OBTER_TAREFAS]({ commit }, filtro: string) {
+      let url = 'tarefas';
+      if (filtro) {
+        url += `?descricao=${filtro}`
+      }
+      console.log(url)
       try {
-        const resposta = await http.get('tarefas');
+        const resposta = await http.get(url);
         commit(DEFINIR_TAREFAS, resposta.data);
       } catch (err: any) {
         const error = new Error(err.message);
